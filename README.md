@@ -1,6 +1,6 @@
-# go-transaction-sample
+# go-transaction-rollback-sample
 
-This Go program demonstrates the importance of handling transactions and their rollback in SQLite. The program connects to an SQLite database, creates a table called users, and then attempts to execute two SQL queries in a single transaction. If an error occurs during the execution of any of the queries, the transaction is immediately rolled back, emphasizing the need for proper transaction handling.
+This Go program demonstrates the importance of handling transactions and their rollback in SQLite, particularly when a transaction is canceled. The program connects to an SQLite database, creates a table called users, and then attempts to execute two SQL queries in a single transaction. During the transaction, the context is intentionally canceled between the first and second queries, causing the transaction to be rolled back immediately, emphasizing the need for proper transaction handling in cases of cancellation.
 
 ## Requirements
 
@@ -23,4 +23,4 @@ go get -u github.com/mattn/go-sqlite3
 go run main.go
 ```
 
-Upon successful execution, the program will connect to the example.db SQLite database file, create a users table, and attempt to insert two rows within a transaction. If an error occurs during the execution of any of the SQL queries, the transaction will be rolled back immediately, and an error message will be logged. This highlights the importance of handling transaction rollbacks in a database application.
+Upon successful execution, the program will connect to the example.db SQLite database file, create a users table, and attempt to insert two rows within a transaction. However, the context is intentionally canceled between the first and second queries, causing the transaction to be rolled back immediately, and an error message will be logged. This highlights the importance of handling transaction rollbacks in a database application, especially when dealing with cancellations.
